@@ -1,6 +1,3 @@
-print("testweb")
-
-"""
 from flask import Flask, render_template
 
 app = Flask(__name__)
@@ -11,6 +8,12 @@ def index():
 if __name__ == '__main__':
     app.run(debug=True)
     
+#________________________________________________________________________________________________________
+print("testweb")
+    
+
+"""
+
 # Use a pipeline as a high-level helper
 from transformers import pipeline
 
