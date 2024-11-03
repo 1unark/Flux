@@ -6,11 +6,18 @@ def index():
     return render_template('index.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
-    
+    app.run(debug=False)
+
+"""    
 #________________________________________________________________________________________________________
 print("testweb")
     
+from transformers import GPT2Tokenizer, GPT2Model
+tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
+model = GPT2Model.from_pretrained('gpt2')
+text = "Replace me by any text you'd like."
+encoded_input = tokenizer(text, return_tensors='pt')
+output = model(**encoded_input)
 
 """
 
@@ -95,4 +102,3 @@ if __name__ == "__main__":
 
     print("Extracted Schedule Information:")
     print(schedule_info)
-    """
