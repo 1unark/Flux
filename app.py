@@ -1,26 +1,3 @@
-from flask import Flask, render_template
-
-app = Flask(__name__)
-@app.route('/')
-def index():
-    return render_template('index.html')
-
-if __name__ == '__main__':
-    app.run(debug=False)
-
-"""    
-#________________________________________________________________________________________________________
-print("testweb")
-    
-from transformers import GPT2Tokenizer, GPT2Model
-tokenizer = GPT2Tokenizer.from_pretrained('gpt2')
-model = GPT2Model.from_pretrained('gpt2')
-text = "Replace me by any text you'd like."
-encoded_input = tokenizer(text, return_tensors='pt')
-output = model(**encoded_input)
-
-"""
-
 # Use a pipeline as a high-level helper
 from transformers import pipeline
 
@@ -97,7 +74,7 @@ def extract_schedule_info(user_input):
 
 # Test the function with an example input
 if __name__ == "__main__":
-    user_input = str(input("User Input: "))
+    user_input = str(input("Test User Input: "))
     schedule_info = extract_schedule_info(user_input)
 
     print("Extracted Schedule Information:")

@@ -1,28 +1,40 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Schedule Extractor</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; padding: 20px; }
+        input[type="text"], button { padding: 10px; margin-top: 10px; }
+        .result { margin-top: 20px; }
+    </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Schedule Extractor</h1>
-        <form method="POST">
-            <label for="user_input">Enter your schedule:</label><br>
-            <textarea id="user_input" name="user_input" rows="4" cols="50"></textarea><br>
-            <input type="submit" value="Extract Schedule">
-        </form>
-        {% if schedule_info %}
-        <h2>Extracted Schedule Information:</h2>
-        <ul>
-            <li><strong>Event:</strong> {{ schedule_info.event }}</li>
-            <li><strong>Time:</strong> {{ schedule_info.time }}</li>
-            <li><strong>Date:</strong> {{ schedule_info.date }}</li>
-        </ul>
-        {% endif %}
-    </div>
+    <h1>Schedule Extractor</h1>
+    <form id="scheduleForm">
+        <input type="text" id="user_input" name="user_input" placeholder="Enter your schedule details here..." required>
+        <button type="submit">Extract Information</button>
+    </form>
+    <div class="result" id="result"></div>
+
+    <script>
+        document.getElementById('scheduleForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const userInput = document.getElementById('user_input').value;
+            const response = await fetch('/extract', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({ 'user_input': userInput })
+            });
+            const result = await response.json();
+            document.getElementById('result').innerHTML = `
+                <h3>Extracted Information:</h3>
+                <p><strong>Event:</strong> ${result.event || 'N/A'}</p>
+                <p><strong>Time:</strong> ${result.time || 'N/A'}</p>
+                <p><strong>Date:</strong> ${result.date || 'N/A'}</p>
+            `;
+        });
+    </script>
 </body>
 </html>
